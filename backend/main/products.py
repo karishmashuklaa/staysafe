@@ -1,4 +1,4 @@
-const products = [
+products = [
     {
       '_id': '1',
       'name': 'Solid Black Mask',
@@ -24,8 +24,5 @@ const products = [
       'numReviews': 8,
     }
   ]
-
-export default products;
-  
 
   

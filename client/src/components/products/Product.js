@@ -1,12 +1,22 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { Row, Col, Image, ListGroup, Button, Card} from 'react-bootstrap'
-import Rating from './Rating';
-import products from '../../utils/products';
+import Rating from './Rating'
+import products from '../../utils/products'
+import axios from 'axios'
 
 
 const Product = ({ match }) => {
-    const product = products.find((prod) => prod._id == match.params.id )
+    const [product, setProduct] = useState([])
+
+    useEffect(() => {
+       async function fetchProduct(){
+           const { data } = await axios.get(`/api/products/${match.params.id}`)
+           setProduct(data)
+       }
+       fetchProduct()
+    },[])
+    
     return (
         <div>
              <Link to='/' className='btn btn-primary my-3'>
@@ -29,12 +39,8 @@ const Product = ({ match }) => {
                     <ListGroup.Item className="text-white">
                         <Rating 
                         value={product.rating} 
-                        text={`${product.numReviews} reviews`} 
+                        text={` ${product.numReviews} reviews`} 
                         color={'#f8e825'} />
-                    </ListGroup.Item>
-
-                    <ListGroup.Item className="text-white">
-                        Category: {product.category}
                     </ListGroup.Item>
 
                     <ListGroup.Item className="text-white">
@@ -52,29 +58,41 @@ const Product = ({ match }) => {
                     <Card>
                         <ListGroup variant='flush'>
 
-                            <ListGroup.Item className="text-white">
+                        
+                        <ListGroup.Item className="text-white">
                                 <Row>
-                                    <Col>Price:</Col>
+                                    <Col>Category:</Col>
                                     <Col>
-                                        <strong>Rs {product.price}</strong>
+                                        {product.category}
                                     </Col>
                                 </Row>
+                        </ListGroup.Item>
 
-                                </ListGroup.Item>
-                                    <ListGroup.Item className="text-white">
-                                    <Row>
-                                        <Col>Status:</Col>
-                                        <Col>
-                                        {product.countInStock > 0 ? 'In Stock' : 'Out of Stock'}
-                                        </Col>
-                                    </Row>
-                                </ListGroup.Item>
-                                <Button type="button" className="btn btn-success"
-                                disabled={product.countInStock == 0}>Add To Cart</Button>
-                            </ListGroup>
-                        </Card>
-                </Col>
-            </Row>
+                        <ListGroup.Item className="text-white">
+                            <Row>
+                                <Col>Price:</Col>
+                                <Col>
+                                    <strong>Rs {product.price}</strong>
+                                </Col>
+                            </Row>
+                        </ListGroup.Item>
+
+                        <ListGroup.Item className="text-white">
+                            <Row>
+                                <Col>Status:</Col>
+                                <Col>
+                                    <strong>{product.countInStock > 0 ? 'In Stock' : 'Out of Stock'}</strong>
+                                </Col>
+                            </Row>
+                        </ListGroup.Item>
+
+                        <Button type="button" className="btn btn-success"
+                        disabled={product.countInStock == 0}>Add To Cart</Button>
+                                
+                    </ListGroup>
+                </Card>
+            </Col>
+        </Row>
         </div>
     )
 }
