@@ -1,28 +1,34 @@
-import React, { useState, useEffect } from 'react'
+import React, { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { Row, Col, Image, ListGroup, Button, Card} from 'react-bootstrap'
-import Rating from './Rating'
+import { useDispatch, useSelector } from 'react-redux'
 import products from '../../utils/products'
-import axios from 'axios'
+import Rating from './Rating'
+import Loader from '../layout/Loader'
+import Message from '../layout/Message'
+import { listProductDetails } from '../../actions/product'
 
 
 const Product = ({ match }) => {
-    const [product, setProduct] = useState([])
+
+    const dispatch = useDispatch()
+    const productDetails = useSelector(state => state.productDetails)
+    const {loading,error,product} = productDetails
 
     useEffect(() => {
-       async function fetchProduct(){
-           const { data } = await axios.get(`/api/products/${match.params.id}`)
-           setProduct(data)
-       }
-       fetchProduct()
-    },[])
+      dispatch(listProductDetails(match.params.id))
+    },[dispatch,match])
     
+
     return (
-        <div>
+        <div> 
              <Link to='/' className='btn btn-primary my-3'>
                  Go Back
             </Link>
 
+            {loading ? <Loader /> : error ? <Message variant="danger">{error}</Message> :
+            (
+                <div>
              <Row>
                 <Col md={6}>
                     <Image src={product.image} alt={product.name} fluid />
@@ -93,6 +99,8 @@ const Product = ({ match }) => {
                 </Card>
             </Col>
         </Row>
+        </div>
+            )}
         </div>
     )
 }
