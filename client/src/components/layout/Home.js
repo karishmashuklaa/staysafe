@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from 'react'
+import React, { useEffect } from 'react'
 import { Row, Col } from 'react-bootstrap'
 import Products from '../products/Products'
 import Loader from './Loader'
 import Message from './Message'
 import { useDispatch, useSelector } from 'react-redux'
-import listProducts from '../../actions/product'
+import {listProducts} from '../../actions/product'
 
 const Home = () => {
     const dispatch = useDispatch()
