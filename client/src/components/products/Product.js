@@ -21,11 +21,14 @@ const Product = ({ match }) => {
     
 
     return (
-        <div>
+        <div> 
              <Link to='/' className='btn btn-primary my-3'>
                  Go Back
             </Link>
 
+            {loading ? <Loader /> : error ? <Message variant="danger">{error}</Message> :
+            (
+                <div>
              <Row>
                 <Col md={6}>
                     <Image src={product.image} alt={product.name} fluid />
@@ -96,6 +99,8 @@ const Product = ({ match }) => {
                 </Card>
             </Col>
         </Row>
+        </div>
+            )}
         </div>
     )
 }

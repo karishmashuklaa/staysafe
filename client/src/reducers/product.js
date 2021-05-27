@@ -7,7 +7,7 @@ import {
     PRODUCT_DETAILS_SUCCESS,
     PRODUCT_DETAILS_ERROR
 
-} from '../actions/constants'
+} from '../constants/productConstants'
 
 export const productListReducer = (state={ products: [] }, action) => {
     const { type, payload } = action
