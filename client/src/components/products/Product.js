@@ -9,7 +9,7 @@ import Message from '../layout/Message'
 import { listProductDetails } from '../../actions/product'
 
 
-const Product = ({ match }) => {
+const Product = ({ match, history }) => {
 
     const [qty,setQty] = useState(1)
 
@@ -20,6 +20,10 @@ const Product = ({ match }) => {
     useEffect(() => {
       dispatch(listProductDetails(match.params.id))
     },[dispatch,match])
+
+    const addToCartHandler = () => {
+       history.push(`/cart/${match.params.id}?qty=${qty}`)
+    }
     
 
     return (
@@ -119,7 +123,8 @@ const Product = ({ match }) => {
                         )}
 
                         <Button type="button" className="btn btn-success"
-                        disabled={product.countInStock == 0}>Add To Cart</Button>
+                        disabled={product.countInStock == 0}
+                        onClick={addToCartHandler}>Add To Cart</Button>
                                 
                     </ListGroup>
                 </Card>
