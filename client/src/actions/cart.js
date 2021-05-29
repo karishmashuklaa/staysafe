@@ -15,6 +15,11 @@ export const addToCart = (id,qty) => async(dispatch,getState) => {
             qty
         }
     })
+
+    // saving cart items in local storage 
+    // local storage takes key value pairs : cartItems is key 
+    // cart is the cartReducer 
+    localStorage.setItem('cartItems', JSON.stringify(getState().cart.cartItems)) 
 }
 
 
