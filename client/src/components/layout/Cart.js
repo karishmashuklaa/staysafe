@@ -1,5 +1,5 @@
 import React,{ useEffect } from 'react'
-import {Row, Col, Image, ListGroup, Form, Button} from 'react-bootstrap'
+import {Row, Col, Image, ListGroup, Form, Button, Card} from 'react-bootstrap'
 import {Link} from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { addToCart } from '../../actions/cart'
@@ -22,17 +22,21 @@ const Cart = ({match,location,history}) => {
         dispatch(addToCart(productId, qty))
         }
     },[dispatch,productId,qty])
+
+    const removeFromCartHandler = (id) => {
+        console.log('Remove:', id)
+    }
     
 
     return (
         <Row>
             <Col md={8}>
-                <h1>Shopping Cart</h1>
+                <h1>SHOPPING CART</h1>
                 {cartItems.length === 0 ? (
                     <Message variant='secondary'>
                         Your cart is empty! Please add some products to your cart.
                         <br />
-                        <Link to='/'>Shop Product</Link>
+                        <Link to='/'>Shop Products</Link>
 
                     </Message>
                 ) : (
@@ -47,17 +51,20 @@ const Cart = ({match,location,history}) => {
 
                                         <Col md={3}>
                                             <Link to={`product/${item.product}`}
-                                            className="link">{item.name}</Link>
+                                            className="link"
+                                            style={{fontSize:'1.2rem'}}>{item.name}</Link>
                                         </Col>
 
                                         <Col md={2}>
-                                            <p className="text-white">Rs {item.price}</p>
+                                            <p className="text-white"
+                                            style={{fontSize:'1.2rem'}}>Rs {item.price}</p>
                                         </Col>
 
                                         <Col md={3}>
                                         <Form.Control 
                                         as="select"
                                         value={item.qty}
+                                        className="mb-3"
                                         onChange={(e) => dispatch(addToCart(item.product, Number(e.target.value)))}
                                         >
                                             {
@@ -74,7 +81,8 @@ const Cart = ({match,location,history}) => {
                                         <Col md={1}>
                                             <Button
                                                 type='button'
-                                                variant='danger'
+                                                variant='primary'
+                                                onClick={() => removeFromCartHandler(item.product)}
                                             >
                                                 <i className='fas fa-trash'></i>
                                             </Button>
@@ -86,7 +94,18 @@ const Cart = ({match,location,history}) => {
                         </ListGroup>
                 )}
             </Col>
+            <Col md={4}>
+                <Card>
+                    <ListGroup variant="flush">
+                        <ListGroup.Item>
+                            <h2>SUB TOTAL ({cartItems.reduce((acc,item) => acc + item.qty, 0)}) ITEMS </h2>
+                            <h2>Rs {cartItems.reduce((acc,item) => acc + item.qty * item.price, 0 )}</h2>
+                        </ListGroup.Item>
+                    </ListGroup>
+                </Card>
+            </Col>
         </Row>
+
     )
 }
 
