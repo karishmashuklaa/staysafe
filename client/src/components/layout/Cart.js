@@ -1,5 +1,5 @@
 import React,{ useEffect } from 'react'
-import {Row,Col, Image, ListGroup} from 'react-bootstrap'
+import {Row,Col, Image, ListGroup,Form} from 'react-bootstrap'
 import {Link} from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { addToCart } from '../../actions/cart'
@@ -38,6 +38,7 @@ const Cart = ({match,location,history}) => {
                 ) : (
                     	<ListGroup variant='flush'>
                             {cartItems.map(item => (
+                                // product is the id of the product
                                 <ListGroup.Item key={item.product}>
                                     <Row>
                                         <Col md={2}>
@@ -51,6 +52,23 @@ const Cart = ({match,location,history}) => {
 
                                         <Col md={2}>
                                             <p className="text-white">Rs {item.price}</p>
+                                        </Col>
+
+                                        <Col md={3}>
+                                        <Form.Control 
+                                        as="select"
+                                        value={item.qty}
+                                        onChange={(e) => dispatch(addToCart(item.product, Number(e.target.value)))}
+                                        >
+                                            {
+                                                // if there are 4 products in stock then this will be [0,1,2,3]
+                                                [...Array(item.countInStock).keys()].map((i) => (
+                                                    <option key={i+1} value={i + 1}>
+                                                        {i + 1}
+                                                   </option>
+                                                ))
+                                            }
+                                        </Form.Control>
                                         </Col>
 
                                     </Row>
