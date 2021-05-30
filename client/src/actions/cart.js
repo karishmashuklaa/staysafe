@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { CART_ADD_ITEM } from '../constants/cartConstants'
+import { CART_ADD_ITEM, CART_REMOVE_ITEM } from '../constants/cartConstants'
 
 export const addToCart = (id,qty) => async(dispatch,getState) => {
     const {data} = await axios.get(`/api/products/${id}`)
@@ -22,8 +22,14 @@ export const addToCart = (id,qty) => async(dispatch,getState) => {
     localStorage.setItem('cartItems', JSON.stringify(getState().cart.cartItems)) 
 }
 
-
-
-
-
 // getState lets you get any part of the state. Similar to useSelector 
+
+export const removeFromCart = (id) => async(dispatch, getState) => {
+
+    dispatch({
+        type: CART_REMOVE_ITEM,
+        payload: id
+    })
+
+    localStorage.setItem('cartItems', JSON.stringify(getState().cart.cartItems)) 
+}
