@@ -26,6 +26,10 @@ const Cart = ({match,location,history}) => {
     const removeFromCartHandler = (id) => {
         console.log('Remove:', id)
     }
+
+    const checkoutHandler = () => {
+        history.push('/login?redirect=shipping')
+    }
     
 
     return (
@@ -33,7 +37,7 @@ const Cart = ({match,location,history}) => {
             <Col md={8}>
                 <h1>SHOPPING CART</h1>
                 {cartItems.length === 0 ? (
-                    <Message variant='secondary'>
+                    <Message variant='primary'>
                         Your cart is empty! Please add some products to your cart.
                         <br />
                         <Link to='/'>Shop Products</Link>
@@ -100,6 +104,18 @@ const Cart = ({match,location,history}) => {
                         <ListGroup.Item>
                             <h2>SUB TOTAL ({cartItems.reduce((acc,item) => acc + item.qty, 0)}) ITEMS </h2>
                             <h2>Rs {cartItems.reduce((acc,item) => acc + item.qty * item.price, 0 )}</h2>
+                        </ListGroup.Item>
+
+                        <ListGroup.Item>
+                            <Button
+                            type="button"
+                            className="btn-block"
+                            variant="dark"
+                            disabled={cartItems.length === 0}
+                            onClick={checkoutHandler}
+                            >
+                                PROCEED TO CHECKOUT 
+                            </Button>
                         </ListGroup.Item>
                     </ListGroup>
                 </Card>

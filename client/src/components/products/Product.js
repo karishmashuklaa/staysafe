@@ -124,7 +124,7 @@ const Product = ({ match, history }) => {
 
                         <Button type="button" className="btn btn-success"
                         disabled={product.countInStock == 0}
-                        onClick={addToCartHandler}>Add To Cart</Button>
+                        onClick={addToCartHandler}>ADD TO CART </Button>
                                 
                     </ListGroup>
                 </Card>
