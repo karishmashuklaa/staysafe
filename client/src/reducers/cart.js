@@ -27,7 +27,7 @@ export const cartReducer = (state={cartItems:[]}, action) => {
             }
         case CART_REMOVE_ITEM:
             return{
-                ..state,
+                ...state,
                 // payload is the id of the product we want to remove , product is the product id 
                 cartItems: state.cartItems.filter(i => i.product !== payload)
             }
