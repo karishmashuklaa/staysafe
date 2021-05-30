@@ -1,5 +1,5 @@
 import React,{ useEffect } from 'react'
-import {Row,Col, Image, ListGroup,Form} from 'react-bootstrap'
+import {Row, Col, Image, ListGroup, Form, Button} from 'react-bootstrap'
 import {Link} from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { addToCart } from '../../actions/cart'
@@ -71,6 +71,14 @@ const Cart = ({match,location,history}) => {
                                         </Form.Control>
                                         </Col>
 
+                                        <Col md={1}>
+                                            <Button
+                                                type='button'
+                                                variant='danger'
+                                            >
+                                                <i className='fas fa-trash'></i>
+                                            </Button>
+                                        </Col>
                                     </Row>
                                 </ListGroup.Item>
                             ))}
