@@ -1,9 +1,14 @@
+from django.contrib.auth.models import update_last_login
 from django.shortcuts import render
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
+from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
+from rest_framework_simplejwt.views import TokenObtainPairView
+
 from .products import products
 from .models import*
 from .serializers import*
+
 
 @api_view(['GET'])
 def getRoutes(request):
@@ -27,3 +32,16 @@ def getProduct(request, pk):
     product = Product.objects.get(_id=pk)
     serializer = ProductSerializer(product, many=False)
     return Response(serializer.data)
+
+
+class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
+   def validate(self, attrs):
+       data = super().validate(attrs)
+
+       data['email'] = self.user.email
+       
+       return data
+        
+
+class MyTokenObtainPairView(TokenObtainPairView):
+    serializer_class = MyTokenObtainPairSerializer
