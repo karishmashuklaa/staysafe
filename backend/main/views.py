@@ -1,14 +1,14 @@
-from django.contrib.auth.models import update_last_login
-from django.shortcuts import render
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
+from rest_framework.serializers import Serializer
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from rest_framework_simplejwt.views import TokenObtainPairView
 
-from .products import products
 from .models import*
 from .serializers import*
 
+
+# ROUTING
 
 @api_view(['GET'])
 def getRoutes(request):
@@ -19,6 +19,8 @@ def getRoutes(request):
     ]
     return Response(routes)
 
+
+# PRODUCTS
 
 @api_view(['GET'])
 def getProducts(request):
@@ -34,6 +36,8 @@ def getProduct(request, pk):
     return Response(serializer.data)
 
 
+# USER AUTH
+
 class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
    def validate(self, attrs):
        data = super().validate(attrs)
@@ -45,3 +49,13 @@ class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
 
 class MyTokenObtainPairView(TokenObtainPairView):
     serializer_class = MyTokenObtainPairSerializer
+
+
+# USER ROUTES 
+
+@api_view(['GET'])
+def getUserProfile(request):
+    user = request.user
+    serializer = UserSerializer(user, many=False)
+    return Response(serializer.data)
+ 

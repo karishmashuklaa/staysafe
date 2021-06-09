@@ -16,7 +16,6 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-AUTH_USER_MODEL = 'accounts.User'
 
 
 # Application definition
@@ -30,7 +29,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'main.apps.MainConfig',
-    'accounts.apps.AccountsConfig',
     
     'rest_framework',
     'corsheaders',
@@ -112,7 +110,7 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'staysafe_django_react',
+        'NAME': 'staysafe',
         'USER': 'postgres',
         'PASSWORD': 'karishma123',
         'HOST': 'localhost',
