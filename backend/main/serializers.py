@@ -1,6 +1,7 @@
 from django.contrib.auth.models import User
 from django.db.models import fields
 from rest_framework import serializers
+from rest_framework_simplejwt.tokens import RefreshToken
 from .models import*
 
 
@@ -28,6 +29,14 @@ class UserSerializer(serializers.ModelSerializer):
     def get_isAdmin(Self,obj):
         return obj.is_staff
 
+class UserSerializerWithToken(UserSerializer):
+    token = serializers.SerializerMethodField(read_only=True)
+    class Meta:
+        model = User
+        fields = ['_id','name','username','email','isAdmin','token']
+    def get_token(self,obj):
+        token = RefreshToken.for_user(obj)
+        return str(token)
 
 class ProductSerializer(serializers.ModelSerializer):
     class Meta:

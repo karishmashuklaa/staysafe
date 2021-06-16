@@ -40,9 +40,13 @@ def getProduct(request, pk):
 
 class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
    def validate(self, attrs):
+
        data = super().validate(attrs)
 
-       data['email'] = self.user.email
+       serializer = UserSerializerWithToken(self.user).data
+
+       for key,value in serializer.items():
+          data[key] = value
        
        return data
         
