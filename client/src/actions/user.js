@@ -6,7 +6,7 @@ import {
     USER_LOGOUT
 } from '../constants/userConstants'
 
-export const userLogin (email,password) => async(dispatch) => {
+export const login (email,password) => async(dispatch) => {
     try {
         dispatch({
             type: USER_LOGIN_REQUEST,
