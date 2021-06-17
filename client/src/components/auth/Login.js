@@ -12,20 +12,22 @@ const Login = () => {
     const [form, setForm] = useState(DEFAULT_DATA)
 
     const handleChange = (e) => {
+        const { name, value } = e.target;
         setForm({
             ...form,
-            [e.target.name]: e.target.value
+            [name]: value
         })
     }
 
-    const submitForm = () => {
+    const submitForm = (e) => {
+       e.preventDefault()
        console.log('Submitted')
     }
 
     return (
         <FormContainer>
             <h1> Sign In </h1>
-            <Form onSubmit={onSubmit}>
+            <Form>
                 <Form.Group controlId="email">
                     <Form.Label>Email Address </Form.Label>
                         <Form.Control
@@ -48,7 +50,13 @@ const Login = () => {
                         />
                 </Form.Group>
             </Form>
-            <Button type='submit' variant='primary'> Sign In </Button>
+            <br />
+            <Button 
+            type='submit' 
+            variant='primary' 
+            onClick={submitForm}> 
+                Sign In 
+            </Button>
         </FormContainer>
     )
 }
