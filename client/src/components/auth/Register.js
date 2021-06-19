@@ -105,11 +105,10 @@ const Register = ({location, history}) => {
                         onChange={handleChange}
                         />
                 </Form.Group>
-            </Form>
-            <br />
-            <Button type='submit' variant='primary' > 
+                <Button type='submit' variant='primary' className="mt-3" > 
                 Sign Up
-            </Button>
+                </Button>
+            </Form>
 
             <Row className='py-3'>
                 <Col>
