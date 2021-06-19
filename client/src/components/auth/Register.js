@@ -6,18 +6,23 @@ import {Link} from 'react-router-dom'
 import FormContainer from '../layout/FormContainer'
 import Message from '../layout/Message'
 import Loader from '../layout/Loader'
-import {login} from '../../actions/user'
+import {register} from '../../actions/user'
 
-const Login = ({location, history}) => {
+const Register = ({location, history}) => {
     const [form, setForm] = useState({
+        name: '',
         email: '',
-        password: ''
+        password: '',
+        confirmPassword: ''
     })
-    const {email,password} = form
+    const {name,email,password,confirmPassword} = form
+
+    const [message, setMessage] = useState('')
+
     const redirect = location.search ? location.search.split('=')[1] : '/'
 
-    const userLogin = useSelector(state => state.userLogin)
-    const {loading, userInfo, error} = userLogin
+    const userRegister = useSelector(state => state.userRegister)
+    const {loading, userInfo, error} = userRegister
 
     const dispatch = useDispatch()
 
@@ -38,15 +43,33 @@ const Login = ({location, history}) => {
 
     const submitForm = (e) => {
        e.preventDefault()
-       dispatch(login(email,password))
+       if(password != confirmPassword) {
+           setMessage('Passwords do not match')
+       } else {
+        dispatch(register(name,email,password))
+       }
+      
     }
 
     return (
         <FormContainer>
-            <h1> Sign In </h1>
+            <h1> Sign Up </h1>
+            {message && <Message variant='danger'>{message}</Message>}
             {error && <Message variant='danger'>{error}</Message>}
             {loading && <Loader />}
             <Form>
+            <Form.Group controlId="name">
+                    <Form.Label>Full Name </Form.Label>
+                        <Form.Control
+                        required
+                        type="name"
+                        name="name"
+                        value={name}
+                        placeholder="Enter your email address"
+                        onChange={handleChange}
+                        />
+                </Form.Group>
+
                 <Form.Group controlId="email">
                     <Form.Label>Email Address </Form.Label>
                         <Form.Control
@@ -70,22 +93,34 @@ const Login = ({location, history}) => {
                         onChange={handleChange}
                         />
                 </Form.Group>
+
+                <Form.Group controlId="confirmPassword">
+                    <Form.Label>Confirm Password </Form.Label>
+                        <Form.Control
+                        required
+                        type="password"
+                        name="confirmPassword"
+                        value={confirmPassword}
+                        placeholder="Re enter your password"
+                        onChange={handleChange}
+                        />
+                </Form.Group>
             </Form>
             <br />
             <Button 
             type='submit' 
             variant='primary' 
             onClick={submitForm}> 
-                Sign In
+                Sign Up
             </Button>
 
             <Row className='py-3'>
                 <Col>
-                Don't have an account?
+                Already have an account?
                 <Link 
                 className='link'
-                to={redirect ? `/register?redirect=${redirect}` : '/register'}>
-                    {''} Register
+                to={redirect ? `/login?redirect=${redirect}` : '/login'}>
+                    {''} Login
                 </Link>
                 </Col>
             </Row>
@@ -93,4 +128,4 @@ const Login = ({location, history}) => {
     )
 }
 
-export default Login
+export default Register
