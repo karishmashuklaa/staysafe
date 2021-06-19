@@ -57,7 +57,7 @@ const Register = ({location, history}) => {
             {message && <Message variant='danger'>{message}</Message>}
             {error && <Message variant='danger'>{error}</Message>}
             {loading && <Loader />}
-            <Form>
+            <Form onSubmit={submitForm}>
             <Form.Group controlId="name">
                     <Form.Label>Full Name </Form.Label>
                         <Form.Control
@@ -105,14 +105,10 @@ const Register = ({location, history}) => {
                         onChange={handleChange}
                         />
                 </Form.Group>
-            </Form>
-            <br />
-            <Button 
-            type='submit' 
-            variant='primary' 
-            onClick={submitForm}> 
+                <Button type='submit' variant='primary' className="mt-3" > 
                 Sign Up
-            </Button>
+                </Button>
+            </Form>
 
             <Row className='py-3'>
                 <Col>

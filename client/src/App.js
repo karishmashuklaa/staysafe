@@ -8,6 +8,7 @@ import Product from './components/products/Product'
 import Cart from './components/layout/Cart'
 import Login from './components/auth/Login'
 import Register from './components/auth/Register'
+import Profile from './components/auth/Profile'
 
 function App() {
   return (
@@ -16,10 +17,13 @@ function App() {
     <main className="py-3">
       <Container>
         <Route path="/" exact component={Home} />
+
         <Route path="/product/:id" component={Product} />
         <Route path="/cart/:id?" component={Cart} />
+
         <Route path="/login" component={Login} />
         <Route path="/register" component={Register} />
+        <Route path="/profile" component={Profile} />
       </Container>
       </main>
     <Footer />

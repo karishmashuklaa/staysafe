@@ -46,7 +46,7 @@ const Login = ({location, history}) => {
             <h1> Sign In </h1>
             {error && <Message variant='danger'>{error}</Message>}
             {loading && <Loader />}
-            <Form>
+            <Form onSubmit={submitForm}>
                 <Form.Group controlId="email">
                     <Form.Label>Email Address </Form.Label>
                         <Form.Control
@@ -70,14 +70,10 @@ const Login = ({location, history}) => {
                         onChange={handleChange}
                         />
                 </Form.Group>
-            </Form>
-            <br />
-            <Button 
-            type='submit' 
-            variant='primary' 
-            onClick={submitForm}> 
+                <Button type='submit' variant='primary' className="mt-3">
                 Sign In
-            </Button>
+                </Button>
+            </Form>
 
             <Row className='py-3'>
                 <Col>
