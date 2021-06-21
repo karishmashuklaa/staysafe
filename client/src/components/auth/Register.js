@@ -65,7 +65,7 @@ const Register = ({location, history}) => {
                         type="name"
                         name="name"
                         value={name}
-                        placeholder="Enter your email address"
+                        placeholder="Enter your full name"
                         onChange={handleChange}
                         />
                 </Form.Group>
