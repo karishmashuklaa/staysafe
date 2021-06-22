@@ -35,17 +35,15 @@ const Profile = ({history}) => {
             if(!user || !user.name) {
                 dispatch(getUserDetails('profile'))
             } else {
-               handleChange()
+              
             }
         }
     }, [history, userInfo, dispatch, user])
 
     const handleChange = (e) => {
-        const { name, value } = e.target;
+        const { name, value } = e.target
         setForm({
             ...form,
-            name: user.name, 
-            email: user.email,
             [name]: value
         })
     }
