@@ -9,13 +9,11 @@ import Loader from '../layout/Loader'
 import {getUserDetails} from '../../actions/user'
 
 const Profile = ({history}) => {
-    const [form, setForm] = useState({
-        name: '',
-        email: '',
-        password: '',
-        confirmPassword: ''
-    })
-    const {name,email,password,confirmPassword} = form
+    
+    const [name, setName] = useState('')
+    const [email, setEmail] = useState('')
+    const [password, setPassword] = useState('')
+    const [confirmPassword, setConfirmPassword] = useState('')
     const [message, setMessage] = useState('')
 
     const userDetails = useSelector(state => state.userDetails)
@@ -35,18 +33,13 @@ const Profile = ({history}) => {
             if(!user || !user.name) {
                 dispatch(getUserDetails('profile'))
             } else {
-              
+                setName(user.name)
+                setEmail(user.email)
             }
         }
     }, [history, userInfo, dispatch, user])
 
-    const handleChange = (e) => {
-        const { name, value } = e.target
-        setForm({
-            ...form,
-            [name]: value
-        })
-    }
+    
 
     const submitForm = (e) => {
        e.preventDefault()
@@ -73,7 +66,7 @@ const Profile = ({history}) => {
                         name="name"
                         value={name}
                         placeholder="Enter your full name"
-                        onChange={handleChange}
+                        onChange={(e) => setName(e.target.value)}
                         />
                 </Form.Group>
 
@@ -84,7 +77,7 @@ const Profile = ({history}) => {
                         name="email"
                         value={email}
                         placeholder="Enter your email address"
-                        onChange={handleChange}
+                        onChange={(e) => setEmail(e.target.value)}
                         />
                 </Form.Group>
 
@@ -95,7 +88,7 @@ const Profile = ({history}) => {
                         name="password"
                         value={password}
                         placeholder="Enter your new password"
-                        onChange={handleChange}
+                       
                         />
                 </Form.Group>
 
@@ -106,7 +99,7 @@ const Profile = ({history}) => {
                         name="confirmPassword"
                         value={confirmPassword}
                         placeholder="Re enter your new password"
-                        onChange={handleChange}
+                       
                         />
                 </Form.Group>
                 <Button type='submit' variant='primary' className="mt-3" > 
