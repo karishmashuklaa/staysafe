@@ -26,7 +26,7 @@ const Profile = ({history}) => {
     const dispatch = useDispatch()
 
     useEffect(() => {
-        // if ser is not logged in
+        // if user is not logged in
         if(!userInfo) {
             history.push('/login')
         } else {
