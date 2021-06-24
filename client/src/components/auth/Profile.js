@@ -6,7 +6,7 @@ import {Link} from 'react-router-dom'
 import FormContainer from '../layout/FormContainer'
 import Message from '../layout/Message'
 import Loader from '../layout/Loader'
-import {getUserDetails} from '../../actions/user'
+import {getUserDetails, updateUserProfile} from '../../actions/user'
 
 const Profile = ({history}) => {
     
@@ -39,14 +39,18 @@ const Profile = ({history}) => {
         }
     }, [history, userInfo, dispatch, user])
 
-    
-
     const submitForm = (e) => {
        e.preventDefault()
        if(password != confirmPassword) {
            setMessage('Passwords do not match')
        } else {
-            console.log('Updating')
+            dispatch(updateUserProfile({
+                'id': user._id,
+                'name': name,
+                'email': email,
+                'password': password
+            }))
+            setMessage('')
        }
       
     }
