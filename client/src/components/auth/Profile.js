@@ -6,7 +6,8 @@ import {Link} from 'react-router-dom'
 import FormContainer from '../layout/FormContainer'
 import Message from '../layout/Message'
 import Loader from '../layout/Loader'
-import {getUserDetails} from '../../actions/user'
+import {getUserDetails, updateUserProfile} from '../../actions/user'
+import { USER_UPDATE_PROFILE_RESET } from '../../constants/userConstants'
 
 const Profile = ({history}) => {
     
@@ -17,36 +18,45 @@ const Profile = ({history}) => {
     const [message, setMessage] = useState('')
 
     const userDetails = useSelector(state => state.userDetails)
-    const {loading, error, user} = userDetails
+    const { loading, error, user } = userDetails
 
     const userLogin = useSelector(state => state.userLogin)
-    const {userInfo} = userLogin
+    const { userInfo } = userLogin
 
+    const userUpdateProfile = useSelector(state => state.userUpdateProfile)
+    const { success } = userUpdateProfile
 
     const dispatch = useDispatch()
 
     useEffect(() => {
-        // if ser is not logged in
+        // if user is not logged in
         if(!userInfo) {
             history.push('/login')
         } else {
-            if(!user || !user.name) {
+            if(!user || !user.name || success) {
+                dispatch({
+                    type: USER_UPDATE_PROFILE_RESET
+                })
                 dispatch(getUserDetails('profile'))
             } else {
                 setName(user.name)
                 setEmail(user.email)
             }
         }
-    }, [history, userInfo, dispatch, user])
-
-    
+    }, [history, userInfo, dispatch, user, success])
 
     const submitForm = (e) => {
        e.preventDefault()
        if(password != confirmPassword) {
            setMessage('Passwords do not match')
        } else {
-            console.log('Updating')
+            dispatch(updateUserProfile({
+                'id': user._id,
+                'name': name,
+                'email': email,
+                'password': password
+            }))
+            setMessage('')
        }
       
     }
@@ -88,7 +98,7 @@ const Profile = ({history}) => {
                         name="password"
                         value={password}
                         placeholder="Enter your new password"
-                       
+                        onChange={(e) => setPassword(e.target.value)}
                         />
                 </Form.Group>
 
@@ -99,7 +109,7 @@ const Profile = ({history}) => {
                         name="confirmPassword"
                         value={confirmPassword}
                         placeholder="Re enter your new password"
-                       
+                        onChange={(e) => setConfirmPassword(e.target.value)}
                         />
                 </Form.Group>
                 <Button type='submit' variant='primary' className="mt-3" > 
