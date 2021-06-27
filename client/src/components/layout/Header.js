@@ -28,7 +28,7 @@ const Header = () => {
                         <Nav className="ml-auto">
 
                             <LinkContainer to='/cart'>
-                                <Nav.Link>CART</Nav.Link>
+                                <Nav.Link>Cart</Nav.Link>
                             </LinkContainer>
                             { userInfo ? (
                                 <NavDropdown title={userInfo.name} id='username'>
@@ -40,7 +40,7 @@ const Header = () => {
                                 </NavDropdown>
                             ) : (
                                 <LinkContainer to='/login'>
-                                <Nav.Link>LOGIN</Nav.Link>
+                                <Nav.Link>Login</Nav.Link>
                                 </LinkContainer>  
                             )}
             
