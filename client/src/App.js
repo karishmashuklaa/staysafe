@@ -9,6 +9,7 @@ import Cart from './components/layout/Cart'
 import Login from './components/auth/Login'
 import Register from './components/auth/Register'
 import Profile from './components/auth/Profile'
+import Shipping from './components/products/Shipping'
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
 
         <Route path="/product/:id" component={Product} />
         <Route path="/cart/:id?" component={Cart} />
+        <Route path="/shipping" component={Shipping} />
 
         <Route path="/login" component={Login} />
         <Route path="/register" component={Register} />
