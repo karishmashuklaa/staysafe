@@ -23,3 +23,8 @@ h3{
 .link {
     text-decoration: none;
 }
+
+.ml-auto {
+    margin-left: auto !important;
+    justify-content: end;
+}
