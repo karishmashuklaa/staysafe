@@ -5,11 +5,11 @@ import Header from './components/layout/Header'
 import Footer from './components/layout/Footer'
 import Home from './components/layout/Home'
 import Product from './components/products/Product'
-import Cart from './components/layout/Cart'
+import Cart from './components/cart/Cart'
 import Login from './components/auth/Login'
 import Register from './components/auth/Register'
 import Profile from './components/auth/Profile'
-import Shipping from './components/products/Shipping'
+import Shipping from './components/cart/Shipping'
 
 function App() {
   return (

@@ -3,7 +3,7 @@ import {Row, Col, Image, ListGroup, Form, Button, Card} from 'react-bootstrap'
 import {Link} from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { addToCart, removeFromCart } from '../../actions/cart'
-import Message from './Message'
+import Message from '../layout/Message'
 
 
 const Cart = ({match,location,history}) => {
