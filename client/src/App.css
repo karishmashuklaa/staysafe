@@ -1,5 +1,6 @@
 main {
     height: 90vh;
+    overflow: hidden;
 }
 ::selection {
     background: #6e6767; /* WebKit/Blink Browsers */
