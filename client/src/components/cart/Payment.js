@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Col,Form,Button } from 'react-bootstrap'
 import FormContainer from '../layout/FormContainer'
 import { useSelector,useDispatch } from 'react-redux'
@@ -37,7 +37,7 @@ const Payment = ({ history }) => {
                         id="paypal"
                         name="paymentMethod"
                         checked
-                        
+                        onChange={(e) => setPaymentMethod(e.target.value)}
                         />
                         </Col>
                     </Form.Label>
