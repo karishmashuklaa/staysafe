@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { Col,Form,Button } from 'react-bootstrap'
 import FormContainer from '../layout/FormContainer'
 import { useSelector,useDispatch } from 'react-redux'
+import { savePaymentMethod } from '../../actions/cart'
 import CheckoutSteps from './CheckoutSteps'
 
 
@@ -19,7 +20,7 @@ const Payment = ({ history }) => {
 
     const submitHandler = (e) => {
         e.preventDefault()
-        // dispatch(savePaymentMethod(setPaymentMethod))
+        dispatch(savePaymentMethod(paymentMethod))
         history.push("/placeholder")
     }
 
